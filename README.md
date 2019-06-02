@@ -3,9 +3,13 @@
 所有功能使用Ajax技术，浏览器发送Ajax请求给后台，后台返回json格式的数据，JS回调函数对返回的JSON数据进行处理。针对浏览器禁用cookies的情况，通过URL地址重写技术将sessionId放到URL地址里面。用户的登录状态以及权限使用session缓存。
 
 后台开发使用的框架：**Spring + Spring MVC + MyBatis**
+
 前端开发使用的框架：**BootStrap + EasyUI**
+
 服务器软件：**tomcat**
+
 数据库软件：**mysql**
+
 开发工具：**eclipse + maven**
 
 主要功能：
