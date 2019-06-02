@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.testin.hr.dao.DeptMapper">
+    <resultMap id="BaseResultMap" type="com.testin.hr.domain.Dept">
+            <id column="id" jdbcType="BIGINT" property="id"/>
+            <result column="name" jdbcType="VARCHAR" property="name"/>
+            <result column="address" jdbcType="VARCHAR" property="address"/>
+            <result column="code" jdbcType="VARCHAR" property="code"/>
+            <result column="icon" jdbcType="VARCHAR" property="icon"/>
+            <result column="pid" jdbcType="BIGINT" property="pid"/>
+            <result column="is_leaf" jdbcType="BIT" property="isLeaf"/>
+            <result column="seq" jdbcType="TINYINT" property="seq"/>
+            <result column="del_flag" jdbcType="BIT" property="delFlag"/>
+            <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+            <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                    #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                    #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id,
+        name,
+        address,
+        code,
+        icon,
+        pid,
+        is_leaf,
+        seq,
+        del_flag,
+        update_time,
+        create_time
+    </sql>
+    <select id="selectByExample" parameterType="com.testin.hr.domain.DeptExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from dept
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectPageByExample" parameterType="com.testin.hr.domain.DeptExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from dept
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        limit #{start},#{size};
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from dept
+        where id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from dept
+        where id = #{id}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.testin.hr.domain.DeptExample">
+        delete from dept
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.testin.hr.domain.Dept">
+        insert into dept (<include refid="Base_Column_List"/>)
+        values (
+                #{id},
+                #{name},
+                #{address},
+                #{code},
+                #{icon},
+                #{pid},
+                #{isLeaf},
+                #{seq},
+                #{delFlag},
+                #{updateTime},
+                #{createTime}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.testin.hr.domain.Dept">
+        insert into dept
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="icon != null">
+                icon,
+            </if>
+            <if test="pid != null">
+                pid,
+            </if>
+            <if test="isLeaf != null">
+                is_leaf,
+            </if>
+            <if test="seq != null">
+                seq,
+            </if>
+            <if test="delFlag != null">
+                del_flag,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+            #{id},
+            </if>
+            <if test="name != null">
+            #{name},
+            </if>
+            <if test="address != null">
+            #{address},
+            </if>
+            <if test="code != null">
+            #{code},
+            </if>
+            <if test="icon != null">
+            #{icon},
+            </if>
+            <if test="pid != null">
+            #{pid},
+            </if>
+            <if test="isLeaf != null">
+            #{isLeaf},
+            </if>
+            <if test="seq != null">
+            #{seq},
+            </if>
+            <if test="delFlag != null">
+            #{delFlag},
+            </if>
+            <if test="updateTime != null">
+            #{updateTime},
+            </if>
+            <if test="createTime != null">
+            #{createTime},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.testin.hr.domain.DeptExample" resultType="java.lang.Long">
+        select count(*) from dept
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update dept
+        <set>
+            <if test="record.id != null">
+                id = #{record.id},
+            </if>
+            <if test="record.name != null">
+                name = #{record.name},
+            </if>
+            <if test="record.address != null">
+                address = #{record.address},
+            </if>
+            <if test="record.code != null">
+                code = #{record.code},
+            </if>
+            <if test="record.icon != null">
+                icon = #{record.icon},
+            </if>
+            <if test="record.pid != null">
+                pid = #{record.pid},
+            </if>
+            <if test="record.isLeaf != null">
+                is_leaf = #{record.isLeaf},
+            </if>
+            <if test="record.seq != null">
+                seq = #{record.seq},
+            </if>
+            <if test="record.delFlag != null">
+                del_flag = #{record.delFlag},
+            </if>
+            <if test="record.updateTime != null">
+                update_time = #{record.updateTime},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update dept
+        set
+            id = #{record.id},
+            name = #{record.name},
+            address = #{record.address},
+            code = #{record.code},
+            icon = #{record.icon},
+            pid = #{record.pid},
+            is_leaf = #{record.isLeaf},
+            seq = #{record.seq},
+            del_flag = #{record.delFlag},
+            update_time = #{record.updateTime},
+            create_time = #{record.createTime}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.testin.hr.domain.Dept">
+        update dept
+        <set>
+            <if test="name != null">
+            name = #{name},
+            </if>
+            <if test="address != null">
+            address = #{address},
+            </if>
+            <if test="code != null">
+            code = #{code},
+            </if>
+            <if test="icon != null">
+            icon = #{icon},
+            </if>
+            <if test="pid != null">
+            pid = #{pid},
+            </if>
+            <if test="isLeaf != null">
+            is_leaf = #{isLeaf},
+            </if>
+            <if test="seq != null">
+            seq = #{seq},
+            </if>
+            <if test="delFlag != null">
+            del_flag = #{delFlag},
+            </if>
+            <if test="updateTime != null">
+            update_time = #{updateTime},
+            </if>
+            <if test="createTime != null">
+            create_time = #{createTime}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.testin.hr.domain.Dept">
+        update dept
+        set
+            name = #{name},
+            address = #{address},
+            code = #{code},
+            icon = #{icon},
+            pid = #{pid},
+            is_leaf = #{isLeaf},
+            seq = #{seq},
+            del_flag = #{delFlag},
+            update_time = #{updateTime},
+            create_time = #{createTime}
+        where id = #{id}
+    </update>
+</mapper>
